@@ -1,5 +1,5 @@
 import React from "react";
-import { render, queryAllByTestId } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import Episodes from "./Episodes";
 const episodes = [
   {
@@ -54,12 +54,10 @@ const episodes = [
   }
 ];
 test("episodes lists data when rendered and rerendered", async () => {
-  const { rerender, findAllByTestId, container } = render(
-    <Episodes episodes={[]} />
-  );
-  expect(queryAllByTestId(container, /episodeTest/i)).toStrictEqual([]);
-  expect(queryAllByTestId(container, /episodeDiv/i)).toHaveLength(1);
+  const { rerender, queryAllByTestId } = render(<Episodes episodes={[]} />);
+  expect(queryAllByTestId(/episodeTest/i)).toStrictEqual([]);
+  expect(queryAllByTestId(/episodeDiv/i)).toHaveLength(1);
 
   rerender(<Episodes episodes={episodes} />);
-  expect(queryAllByTestId(container, /episodeTest/i)).toHaveLength(2);
+  expect(queryAllByTestId(/episodeTest/i)).toHaveLength(2);
 });
